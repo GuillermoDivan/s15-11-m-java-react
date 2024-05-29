@@ -1,0 +1,17 @@
+package com.s1511.Ticketcine.application.dto.ticket;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record ResponseTicketDto(
+        String id,
+        String userId,
+        String cinemaName,
+        String screenId,
+        String movieName,
+        List<String> seatsNames,
+        LocalDateTime functionDate,
+        Double value,
+        Boolean active
+) {
+}
