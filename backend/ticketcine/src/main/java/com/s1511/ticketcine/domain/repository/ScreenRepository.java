@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ScreenRepository extends JpaRepository <Screen, String> {
-    Optional<Screen> findByIdAndName (String id, String name);
-    Optional<Screen> findByNameAndActive (String name, Boolean active);
+    Optional<Screen> findByIdAndActive (String id, Boolean active);
     List<Screen> findByCinemaId (String cinemaId);
 }

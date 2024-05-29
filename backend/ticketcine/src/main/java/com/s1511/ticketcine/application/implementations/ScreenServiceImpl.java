@@ -38,8 +38,8 @@ public class ScreenServiceImpl implements ScreenService {
         return screenMapper.screenToReadDto(savedScreen);
     }
     @Override
-    public ReadDtoScreen getScreenByIdAndName(String id, String name) {
-        Screen screen = screenRepository.findByIdAndName(id,name).orElseThrow(() -> new RuntimeException("Screen not found"));
+    public ReadDtoScreen getScreenByIdAndActive(String id){
+        Screen screen = screenRepository.findByIdAndActive(id,true).orElseThrow(() -> new RuntimeException("Screen not found"));
         if (!screen.getActive()) {
             throw new RuntimeException("Screen is inactive");
         }

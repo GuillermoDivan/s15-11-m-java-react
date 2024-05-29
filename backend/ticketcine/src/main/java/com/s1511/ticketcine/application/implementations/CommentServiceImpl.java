@@ -80,6 +80,7 @@ public class CommentServiceImpl implements CommentService {
                 comment.setComment(updateDtoComment.comment());
             }
 
+        comment.setDate(LocalDateTime.now());
         this.commentRepository.save(comment);
         return commentMapper.commentToReadDto(comment);
     }

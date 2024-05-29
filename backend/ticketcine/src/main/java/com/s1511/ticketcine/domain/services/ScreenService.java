@@ -10,7 +10,7 @@ import com.s1511.ticketcine.domain.entities.Screen;
 
 public interface ScreenService {
     ReadDtoScreen createScreen(CreateDtoScreen createDtoScreen);
-    ReadDtoScreen getScreenByIdAndName(String id, String name);
+    ReadDtoScreen getScreenByIdAndActive(String id);
     List<ReadDtoScreen> getAllScreens();
     ReadDtoScreen updateScreen(String id, UpdateDtoScreen updateDtoScreen);
     void deleteScreen(String id);

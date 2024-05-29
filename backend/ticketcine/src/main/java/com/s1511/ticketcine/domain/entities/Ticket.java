@@ -21,7 +21,7 @@ public class Ticket {
     private String movieName;
     private LocalDateTime functionDate;
     private String cinemaName;
-    private String screenName;
+    private String screenId;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Seat> seatsNames;
     private Boolean active;

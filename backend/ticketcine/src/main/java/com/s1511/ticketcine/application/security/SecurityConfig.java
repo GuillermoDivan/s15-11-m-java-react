@@ -45,6 +45,7 @@ public class SecurityConfig {
             "/movie/**",
             // MP
             "/mp/response",
+            //CINES Y SALAS
             "/screens/**",
             "/functionDetails/**",
             "/cinema/**"
@@ -58,7 +59,8 @@ public class SecurityConfig {
             "/comment/**",
             "/mp/**",
             "/seat/**",
-            "/screen/**"
+            "/screen/**",
+            "/ticket/**"
     };
 
     @Bean

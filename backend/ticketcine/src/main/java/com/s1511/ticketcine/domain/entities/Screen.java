@@ -25,7 +25,6 @@ public class Screen {
     private List<Seat> seat;
     private Boolean active;
 
-    
     @OneToMany(fetch = FetchType.LAZY)
     private List<FunctionDetails> functionDetails;
 

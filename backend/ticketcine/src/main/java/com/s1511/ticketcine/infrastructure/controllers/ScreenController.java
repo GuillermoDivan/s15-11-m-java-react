@@ -27,8 +27,8 @@ public class ScreenController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReadDtoScreen> getScreenById(@PathVariable String id, String name) {
-        ReadDtoScreen screen = screenService.getScreenByIdAndName(id, name);
+    public ResponseEntity<ReadDtoScreen> getScreenById(@PathVariable String id) {
+        ReadDtoScreen screen = screenService.getScreenByIdAndActive(id);
         return ResponseEntity.ok(screen);
     }
 

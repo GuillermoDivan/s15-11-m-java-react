@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(updateUser));
     }
 
-    @PutMapping("/toggle/{id}")
+    @DeleteMapping("/toggle/{id}")
     public ResponseEntity<Boolean> toggleUser(@PathVariable String id){
         return ResponseEntity.ok(userService.toggleUser(id));
     }

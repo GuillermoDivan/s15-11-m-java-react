@@ -4,7 +4,7 @@ import java.util.List;
 public record RequestTicketDto(
         String userId,
         String cinemaName,
-        String screenName,
+        String screenId,
         String movieName,
         List<String> seatsNames,
         Integer amountOfSeats,

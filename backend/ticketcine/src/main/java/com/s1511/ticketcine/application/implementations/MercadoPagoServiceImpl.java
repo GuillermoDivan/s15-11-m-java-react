@@ -10,9 +10,12 @@ import com.mercadopago.resources.payment.Payment;
 import com.mercadopago.resources.preference.Preference;
 import com.s1511.ticketcine.application.dto.mercadopago.MercadoPagoResponse;
 import com.s1511.ticketcine.application.dto.mercadopago.RequestTicketDto;
+import com.s1511.ticketcine.domain.entities.Ticket;
+import com.s1511.ticketcine.domain.repository.TicketRepository;
 import com.s1511.ticketcine.domain.services.MercadoPagoService;
 import com.s1511.ticketcine.domain.services.TicketService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -23,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MercadoPagoServiceImpl implements MercadoPagoService {
     public final TicketService ticketService;
+    public final TicketRepository ticketRepository;
 
     @Override
     public String createPayment(RequestTicketDto requestTicketDto)
@@ -43,7 +47,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
         PreferenceRequest request =
                 PreferenceRequest.builder().items(items).externalReference(ticketId)
-                        .notificationUrl("https://7c13-2803-9800-9885-50d3-7500-891c-107f-557c.ngrok-free.app/mp/response?source_news=webhooks").build();
+                        .notificationUrl("https://52d3-2803-9800-9885-50d3-18bb-17b6-36fa-2a0e.ngrok-free.app/mp/response?source_news=webhooks").build();
         //Con la lista se hace la petición, que funciona como cuerpo del post a MP.
         Preference preferenceResponse = client.create(request); //Genera el link para pagar esto (la request).
 
@@ -55,16 +59,16 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
             throws MPException, MPApiException {
         PaymentClient client = new PaymentClient(); //Genera cliente de consulta de pago.
         Payment payment = client.get(mercadoPagoResponse.data().id()); //Recupera el pago que hizo.
-        String billId = payment.getExternalReference(); //Id de la factura/bill de esta app.
-        Long paymentMP = payment.getId(); //Id de MP para este pago.
+        String ticketId = payment.getExternalReference(); //Id del ticket de esta app, generado en  createPayment.
         String paymentStatus = payment.getStatus(); //Status del pago que indica MP.
         if (paymentStatus.equals("approved")) {
-            var userId = "";
-            var active = true;
-            ticketService.getAllTicketsByUserIdAndActive(userId, active);
+            Ticket ticket = ticketRepository.findById(ticketId)
+                    .orElseThrow(() -> new EntityNotFoundException(
+                            "No se encuentra ticket con el id " + ticketId));
+            ticket.setActive(true);
+            Ticket savedTicket = ticketRepository.save(ticket);
         }
-        //TODO. Aquí el Ticket se pasa a Active True si el paymentStatus es approved.
-        //TODO. En TicketController debería llamarse a getAllTicketsByUserId y desde ahí un getTicketById
+        //TODO. Corroborar estado de reventa de butacas.
     }
 }
 /* Nota de Guille hasta que esto esté en prod: Cada vez que se apaga el ngrok hay que
