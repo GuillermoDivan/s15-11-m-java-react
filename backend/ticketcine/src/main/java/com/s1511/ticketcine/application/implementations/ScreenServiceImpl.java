@@ -79,16 +79,17 @@ public class ScreenServiceImpl implements ScreenService {
         throw new UnsupportedOperationException("Unimplemented method 'selectTypeScreen'");
     }
     @Override
-    public List<Screen> selectMovieByCine(String idCinema) {
+    public List<ReadDtoScreen> selectMovieByCine(String idCinema) {
         List<Screen> screens = screenRepository.findByCinemaId(idCinema);
 
-        return screens;
+        return screenMapper.screenListToReadDtoList(screens);
     }
+
     @Override
-    public List<Screen> selectScreenByCinemaIdAndMovieId(String cinemaId, String movieId) {
+    public List<ReadDtoScreen> selectScreenByCinemaIdAndMovieId(String cinemaId, String movieId) {
         
         List<Screen> screens = fdr.findByCinemaIdAndMovieName(cinemaId, movieId);
-        return screens;
+        return screenMapper.screenListToReadDtoList(screens);
     }
 
     

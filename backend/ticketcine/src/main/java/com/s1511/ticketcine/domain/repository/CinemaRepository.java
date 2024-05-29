@@ -4,10 +4,11 @@ import org.springframework.stereotype.Repository;
 
 import com.s1511.ticketcine.domain.entities.Cinema;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CinemaRepository extends JpaRepository <Cinema, String>{
     Optional<Cinema> findByNameAndActive(String name, Boolean active);
-    
+    List<Cinema> findByCityAndActive(String city, Boolean active);
 }

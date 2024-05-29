@@ -21,7 +21,6 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String title;
-    private String cinema;
     private String description;
     private LocalDate releaseDate;
     private List<String> comment;

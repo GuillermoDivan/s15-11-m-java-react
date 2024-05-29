@@ -77,7 +77,7 @@ public class MovieServiceImpl implements MovieService {
                 Movie movie = new Movie();
                 movie.setImage(dto.poster_path());
                 movie.setTitle(dto.title());
-                movie.setDescription(dto.overview());
+                movie.setDescription("https://image.tmdb.org/t/p/w220_and_h330_face"+dto.overview());
                 movie.setAdult(dto.adult());
                 movie.setReleaseDate(LocalDate.parse(dto.release_date())); // Assuming releaseDate is a String
                 movie.setThreeD(true);
@@ -87,7 +87,6 @@ public class MovieServiceImpl implements MovieService {
                     movie.setSubtitle(false);
                 }
                 movie.setActive(true);
-                movie.setCinema(null);
                 movie.setComment(null);
                 movie.setRate(null);
                 movie.setGenre(assignGenre(dto.genre_ids()));

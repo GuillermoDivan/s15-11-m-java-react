@@ -52,15 +52,15 @@ public class ScreenController {
 
     //TRAE SALAS POR ID CINE
    
-    public ResponseEntity<List<Screen>> selectMovieByCine (@PathVariable String idCinema){
-        List<Screen> dto = screenService.selectMovieByCine(idCinema);
+    public ResponseEntity<List<ReadDtoScreen>> selectMovieByCine (@PathVariable String idCinema){
+        List<ReadDtoScreen> dto = screenService.selectMovieByCine(idCinema);
         return ResponseEntity.ok(dto);
     }
 
     //TRAIGA SALAS CON IDCINE Y IDPELICULA
     @GetMapping("/selectScreen")
-    public ResponseEntity<List<Screen>> selectScreenByCinemaIdAndMovieId(@RequestParam String cinemaId, @RequestParam String MovieId){
-        List<Screen> screens = screenService.selectScreenByCinemaIdAndMovieId(cinemaId, MovieId);
+    public ResponseEntity<List<ReadDtoScreen>> selectScreenByCinemaIdAndMovieId(@RequestParam String cinemaId, @RequestParam String MovieId){
+        List<ReadDtoScreen> screens = screenService.selectScreenByCinemaIdAndMovieId(cinemaId, MovieId);
         return ResponseEntity.ok(screens);
     }
 }

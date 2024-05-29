@@ -46,7 +46,8 @@ public class SecurityConfig {
             // MP
             "/mp/response",
             "/screens/**",
-            "/functionDetails/**"
+            "/functionDetails/**",
+            "/cinema/**"
     };
 
     private static final String[] USER_ENDPOINTS = {

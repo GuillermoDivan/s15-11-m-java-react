@@ -17,8 +17,8 @@ public interface ScreenService {
 /*     List<SeatDTO> selectTypeScreen(String idCinema, String typeScreen, String idScreen);
  */
     List<ReadDtoScreen> selectTypeScreen(String idMovie, String typeScreen, String idCinema);
-    List<Screen> selectMovieByCine(String idCinema);
-    List<Screen> selectScreenByCinemaIdAndMovieId(String cinemaId, String movieId);
+    List<ReadDtoScreen> selectMovieByCine(String idCinema);
+    List<ReadDtoScreen> selectScreenByCinemaIdAndMovieId(String cinemaId, String movieId);
 
 }
 
