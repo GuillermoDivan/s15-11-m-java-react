@@ -21,14 +21,18 @@ const styleContainer: SxProps = {
 
 
 const MovieFilters = () => {
-  const [citiesList, setCitiesList] = useState<IOptionsValue[] | false>(false)
+  const [citiesList, setCitiesList] = useState<string[] | false>(false)
   const [cinemaList, setCinemaList] = useState<IOptionsValue[] | false>(false)
-  const { setMovies } = useMoviesState(state => ({ setMovies: state.setMovies }))
+  // const { setMovies } = useMoviesState(state => ({ setMovies: state.setMovies }))
   const { register, watch } = useForm()
   const { city, cinema } = watch()
 
   useEffect(() => {
     if (city == "empty" || cinema == "empty" || !cinema) return
+
+    // metodo para traer las peliculas relacionadas con ese cine en particular en fechas futuras:
+    // /getMoviesByCine/{cinema}
+    // mandar cinemaId
     // CAMBIAR UN ESTADO GLOBAL EN EL QUE ESTARÁN LAS PELICULAS SEGÚN EL CINE SELECCIONADO
     console.log(cinema);
     // setMovies({ city, cinema })
@@ -38,14 +42,18 @@ const MovieFilters = () => {
   useEffect(() => {
     const listFetch = async (): Promise<any> => {
       if (!city) {
-        // const res = fetchData() PEDIR LISTA DE CIUDADES
-        setCitiesList([{ value: "1", name: "Ciudad uno" }, { value: "2", name: "Ciudad dos" }])
+        // PEDIR LISTA DE CIUDADES
+        const res: string[] = await fetchData("cinema/getCinemasCityName", "GET");
+        setCitiesList(res)
         return
       }
 
+
       if (city !== "empty") {
-        // const res = await fetchData() PEDIR LISTA DE CINES DEPENDIENDO DE LA CIUDAD SELECCIONADA
-        setCinemaList([{ value: "1", name: "Cine uno" }, { value: "2", name: "Cine dos" }])
+        //  PEDIR LISTA DE CINES DEPENDIENDO DE LA CIUDAD SELECCIONADA
+        const res = await fetchData(`cinema/getCinemaListByCity/${city}`, "GET")
+        const dtoMovies = res.map(({ id, name }: { id: string, name: string }) => ({ value: id, name }))
+        setCinemaList(dtoMovies)
         return
       }
     }
@@ -54,10 +62,11 @@ const MovieFilters = () => {
 
   return (
     <Container sx={styleContainer}>
-      <Box display="flex" justifyContent="space-between" gap="1rem">
+      <Box display="flex" justifyContent="space-between" alignItems="center" gap="1rem"
+        flexDirection={{ xs: "column", sm: "row" }}>
 
         {citiesList && <InputSelected listTo={"Ciudades"}
-          optionsValue={citiesList} register={{ ...register("city") }}
+          valueAndName={citiesList} register={{ ...register("city") }}
         />}
 
         {cinemaList && (

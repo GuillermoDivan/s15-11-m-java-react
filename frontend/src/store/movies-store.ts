@@ -17,7 +17,7 @@ interface IMovie {
 
 interface IUseMoviesState {
     movies: IMovie[];
-    setMovies: ({city,cinema}: IFetchProps) => Promise<void>;
+    setMovies: ({ city, cinema }: IFetchProps) => Promise<void>;
 }
 
 export const useMoviesState = createWithEqualityFn<IUseMoviesState>(set => ({
@@ -28,3 +28,12 @@ export const useMoviesState = createWithEqualityFn<IUseMoviesState>(set => ({
         set({ movies })
     },
 }));
+
+
+// MOMENTANEO
+export const demoMoviesState = createWithEqualityFn(set => ({
+    movies: [],
+    setMovies: (newMovies: any) => {
+        set({ movies: newMovies })
+    }
+}))

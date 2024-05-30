@@ -1,6 +1,6 @@
 
 
-export const fetchData = async (path: string, method: "GET" | "PUT" | "POST" | "DELETE", body: object, token?: string): Promise<any> => {
+export const fetchData = async (path: string, method: "GET" | "PUT" | "POST" | "DELETE", body?: object, token?: string): Promise<any> => {
     try {
         const headers: HeadersInit = { "Content-Type": "application/json" };
         token && (headers["Authorization"] = `Bearer ${token}`)

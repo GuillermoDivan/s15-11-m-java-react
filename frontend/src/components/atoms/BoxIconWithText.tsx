@@ -11,14 +11,14 @@ interface IBoxIconWithText {
 
 const BoxIconWithText: FC<IBoxIconWithText> = ({ svgPath, text, leftText, typographyProps }) => {
     return (
-        <Box component={"div"} display={"flex"} m={"5px"} justifyContent={leftText ? "flex-start" : "center"} textAlign={leftText ? "start" : "center"} gap={"7px"} alignItems="center">
+        <Box component={"div"} display={"flex"} m={"4px"} justifyContent={leftText ? "flex-start" : "center"} textAlign={leftText ? "start" : "center"} gap={"7px"} alignItems="center">
             <Image
                 height={16}
                 width={16}
                 alt={svgPath}
                 src={svgPath}
             />
-            <Typography variant="body1" component={"span"} {...typographyProps} lineHeight={1} >
+            <Typography textTransform="capitalize" variant="body1" component={"span"} {...typographyProps} lineHeight={1} >
                 {text}
             </Typography>
         </Box>
