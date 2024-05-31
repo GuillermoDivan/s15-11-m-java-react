@@ -23,6 +23,7 @@ public class Cinema {
     private String id;
     private String name;
     private String city;
+    private String state;
     private String direction;
     private Boolean active;
 

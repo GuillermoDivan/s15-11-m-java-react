@@ -18,12 +18,7 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-
-    //TIPO DE SALA: 2d,3d,etc
-    private String screening; 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Seat> seat;
-    private Boolean active;
+    private String screening; //TIPO DE SALA: 2d,3d,etc
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<FunctionDetails> functionDetails;
@@ -31,5 +26,7 @@ public class Screen {
     @ManyToOne
     @JoinColumn(name = "cinemaId", referencedColumnName = "id")
     private Cinema cinema;
+
+    private Boolean active;
 
 }

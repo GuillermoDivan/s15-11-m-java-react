@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SeatRepository extends JpaRepository<Seat, Long> {
-    List<Seat> findByCinemaIdAndScreenId(String idCinema, String idScreen);
-    List<Seat> findByScreenId(String idScreen);
+public interface SeatRepository extends JpaRepository<Seat, String> {
+  /*  List<Seat> findByFunctionDetails(String functionDetails);
     Optional<Seat> findBySeatNumberAndReserved(String seatNumber, Boolean reserved);
 
-
+*/
 }

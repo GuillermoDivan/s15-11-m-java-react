@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Loader from "@/components/atoms/Loader";
 
 const MovieFilters = dynamic(() => import("@/components/organism/MovieFilters"), { ssr: false })
+const MoviePagination = dynamic(() => import("@/components/atoms/MoviePagination"), { ssr: false })
 
 const PlayingNow = dynamic(() => import("@/components/organism/PlayingNow"), { ssr: false, loading: () => <Loader /> })
 const ComingSoon = dynamic(() => import("@/components/organism/ComingSoon"), { ssr: false, loading: () => <Loader /> })
@@ -57,6 +58,7 @@ const Page = ({ params }: IProps) => {
             {inComingSoon ? <ComingSoon /> : <PlayingNow />}
         </Box>
 
+        {inComingSoon && <MoviePagination />}
     </>)
 }
 

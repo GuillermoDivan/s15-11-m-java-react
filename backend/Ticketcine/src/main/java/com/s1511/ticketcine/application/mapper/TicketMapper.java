@@ -11,7 +11,7 @@ import java.util.List;
     @Mapper(componentModel = "spring")
     public abstract class TicketMapper {
 
-        @Mapping(target = "seatsNames", source = "seatsNames")
+        @Mapping(target = "seatsIds", source = "seatsIds")
         public abstract ResponseTicketDto ticketToResponseDto (Ticket ticket);
         public abstract List<ResponseTicketDto> ticketListToResponseDtoList (List<Ticket> ticketList);
 

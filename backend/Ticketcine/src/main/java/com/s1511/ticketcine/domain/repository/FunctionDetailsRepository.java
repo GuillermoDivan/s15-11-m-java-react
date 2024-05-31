@@ -1,6 +1,7 @@
 package com.s1511.ticketcine.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,6 @@ public interface FunctionDetailsRepository extends JpaRepository<FunctionDetails
             "JOIN fd.screen s " +
             "WHERE s.cinema.id = :cinemaId")
     List<String> findMovieNamesByCinemaId(@Param("cinemaId") String cinemaId);
+
+    Optional<FunctionDetails> findByIdAndActive(String functionDetailsId, Boolean active);
 }

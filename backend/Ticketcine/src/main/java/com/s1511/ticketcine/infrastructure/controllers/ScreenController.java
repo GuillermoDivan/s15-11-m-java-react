@@ -1,5 +1,4 @@
 package com.s1511.ticketcine.infrastructure.controllers;
-import com.s1511.ticketcine.application.dto.seat.SeatDTO;
 import com.s1511.ticketcine.application.dto.screen.CreateDtoScreen;
 import com.s1511.ticketcine.application.dto.screen.ReadDtoScreen;
 import com.s1511.ticketcine.application.dto.screen.UpdateDtoScreen;
@@ -7,7 +6,6 @@ import com.s1511.ticketcine.domain.services.ScreenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import com.s1511.ticketcine.domain.entities.Screen;
 import com.s1511.ticketcine.domain.services.ScreenService;

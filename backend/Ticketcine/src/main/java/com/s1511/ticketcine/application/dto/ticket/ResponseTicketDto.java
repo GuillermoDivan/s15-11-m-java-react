@@ -9,7 +9,7 @@ public record ResponseTicketDto(
         String cinemaName,
         String screenId,
         String movieName,
-        List<String> seatsNames,
+        List<String> seatsIds,
         LocalDateTime functionDate,
         Double value,
         Boolean active

@@ -11,12 +11,12 @@ public record ReadDtoMovie(
         String description,
         LocalDate releaseDate,
         List<String> comment,
-        Double rate,
+        String rate,
         Boolean adult,
         String image,
         List<String> genre,
         Boolean threeD,
         Boolean subtitle,
-        Integer usersRating
+        List<Integer> usersRating
 ) {
 }

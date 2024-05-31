@@ -10,11 +10,12 @@ export interface IOptionsValue {
 
 interface Props {
     register: UseFormRegisterReturn,
+    valueAndName?: string[],
     optionsValue: IOptionsValue[] | false,
     listTo: string
 }
 
-const InputSelected: any = ({ register, optionsValue, listTo }: Props) => {
+const InputSelected: any = ({ register, valueAndName, optionsValue, listTo }: Props) => {
     const [selectedValue, setSelectedValue] = React.useState("empty")
     const { palette } = useTheme()
     const handleChange = (event: SelectChangeEvent) => setSelectedValue(event.target.value);
@@ -22,7 +23,7 @@ const InputSelected: any = ({ register, optionsValue, listTo }: Props) => {
 
     return (
         <FormControl sx={{
-            width: { xs: "48%", sm: 220 }, textTransform: "uppercase",
+            width: 280, textTransform: "uppercase",
             "& fieldset": { borderColor: "rgba(255, 255, 255, 0.2)" },
             "&:hover fieldset": { borderColor: "rgba(255, 255, 255, 0.5)!important" }
         }}>
@@ -60,11 +61,18 @@ const InputSelected: any = ({ register, optionsValue, listTo }: Props) => {
                 <MenuItem value="empty" disabled>
                     <em>{listTo}</em>
                 </MenuItem>
-                {optionsValue && optionsValue.length > 0
-                    ? optionsValue.map(({ value, name }, i) => (
-                        <MenuItem key={i} value={value} children={name} />))
-                    : <MenuItem disabled children="Cargando opciones..." />
+                {
+                valueAndName
+                    ? valueAndName.map((value, i) => (
+                        <MenuItem key={i} value={value} children={value} />))
+                    :
+                    optionsValue && optionsValue.length > 0
+                        ? optionsValue.map(({ value, name }, i) => (
+                            <MenuItem key={i} value={value} children={name} />))
+                        : <MenuItem disabled children="Cargando opciones..." />
                 }
+
+
             </Select>
         </FormControl >
     );

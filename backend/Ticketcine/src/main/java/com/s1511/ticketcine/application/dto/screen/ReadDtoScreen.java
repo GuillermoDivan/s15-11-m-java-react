@@ -1,12 +1,15 @@
 package com.s1511.ticketcine.application.dto.screen;
 
-import com.s1511.ticketcine.application.dto.seat.SeatDTO;
+import com.s1511.ticketcine.application.dto.seat.ResponseSeatDto;
+import com.s1511.ticketcine.domain.entities.FunctionDetails;
 
 import java.util.List;
 
 public class ReadDtoScreen {
     private String id;
-    private String name;
-    private List<SeatDTO> seat;
-    private Boolean active;
+    private List<FunctionDetails> functionDetails; // TODO. CAMBIAR A DTO!!
+    private List<ResponseSeatDto> seatsList;
+
 }
+
+// TODO. VER SI ES NECESARIO!!

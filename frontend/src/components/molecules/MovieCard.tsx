@@ -1,4 +1,4 @@
-import { CardActionArea, Card, CardContent, Typography } from '@mui/material';
+import { CardActionArea, Card, CardContent, Typography, Box } from '@mui/material';
 import BoxIconWithText from '../atoms/BoxIconWithText';
 import Image from 'next/image';
 
@@ -33,11 +33,11 @@ const MovieCard = ({ id, nameMovie, imagePath, isComingSoon, handleClick, textSt
           style={{ objectFit: "cover" }}
           sizes="(max-width: 600px) 100%"
         />
-        <CardContent sx={{ padding: "7px" }}>
-          <Typography maxHeight={"40px"} maxWidth={"95%"} gutterBottom variant="caption" overflow={"hidden"} textOverflow={"ellipsis"} component="figcaption" color="var(--yellow)" fontWeight={700} fontSize={16} lineHeight={"20px"} >
+        <CardContent sx={{ padding: "7px", display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: 120 }}>
+          <Typography maxHeight={"40px"} maxWidth={"95%"} gutterBottom variant="caption" overflow={"hidden"} textOverflow={"ellipsis"} component="figcaption" color="var(--yellow)" fontWeight={700} fontSize={16} lineHeight={"20px"} m={0}>
             {nameMovie || "Deadpool and Wolverine"}
           </Typography>
-
+          <Box maxHeight={61}>
           {isComingSoon
             ? <BoxIconWithText leftText={true} typographyProps={{ color: "var(--gray-color)", fontSize: "15px" }} text={textCalendar || "28.06.2024"} svgPath="/images/cards/calendar.svg" />
             : <>
@@ -46,6 +46,7 @@ const MovieCard = ({ id, nameMovie, imagePath, isComingSoon, handleClick, textSt
             </>}
 
           <BoxIconWithText leftText={true} typographyProps={{ color: "var(--gray-color)", fontSize: "15px" }} text={textVideo || "Accion, Comedia."} svgPath="/images/cards/video.svg" />
+            </Box>
 
         </CardContent>
       </CardActionArea>

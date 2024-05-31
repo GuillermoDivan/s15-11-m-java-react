@@ -2,6 +2,7 @@ package com.s1511.ticketcine.application.implementations;
 
 import com.s1511.ticketcine.application.dto.ticket.ResponseTicketDto;
 import com.s1511.ticketcine.application.mapper.TicketMapper;
+import com.s1511.ticketcine.domain.services.FunctionDetailsService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TicketServiceImpl implements TicketService {
     public final TicketRepository ticketRepository;
+    public final FunctionDetailsRepository functionDetailsRepository;
     public final UserRepository userRepository;
-    public final CinemaRepository cinemaRepository;
-    public final ScreenRepository screenRepository;
-    public final MovieRepository movieRepository;
     public final SeatRepository seatRepository;
     public final TicketMapper ticketMapper;
 
@@ -31,42 +30,37 @@ public class TicketServiceImpl implements TicketService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "No se puede encontrar el usuario con el id " + requestDto.userId()));
 
-        Screen screen = screenRepository.findByIdAndActive(requestDto.screenId(), true)
+        FunctionDetails functionDetails = functionDetailsRepository.findByIdAndActive(requestDto.functionDetailsId(), true)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "No se puede encontrar la sala con el nombre " + requestDto.screenId()));
+                        "No se puede encontrar la función con el id " + requestDto.functionDetailsId()));
 
-        Cinema cinema = cinemaRepository.findByNameAndActive(requestDto.cinemaName(), true)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "No se puede encontrar el cine con el nombre " + requestDto.cinemaName()));
+        Screen screen = functionDetails.getScreen();
+        Cinema cinema = functionDetails.getScreen().getCinema();
+        String movieName = functionDetails.getMovieName();
+        LocalDateTime functionDate = functionDetails.getSchedule();
 
-        Movie movie = movieRepository.findByTitleAndActive(requestDto.movieName(), true)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "No se puede encontrar la película con el nombre " + requestDto.movieName()));
-
-/*        List<Seat> seatEntityList = new ArrayList<>();
-        List<String> seatsList = requestDto.seatsNames();
+        List<Seat> seatEntityList = new ArrayList<>();
+        List<String> seatsList = requestDto.seatsIds();
         for (String seatNumber : seatsList) {
-            Seat seat = seatRepository.findBySeatNumberAndReserved(seatNumber, false)
+            Seat seat = functionDetails.getSeatsList(seatNumber)
                     .orElseThrow(() -> new EntityNotFoundException(
                             "El asiento " + seatNumber + " no se encuentra disponible."));
             seatEntityList.add(seat);
-        }*/
+        }
 
         Double value = calculateTicketPrice(requestDto.unitPrice(), requestDto.amountOfSeats());
-
-        LocalDateTime functionDate = LocalDateTime.now(); // Reemplazar por function Date real cuando esté.
 
         Ticket ticket = new Ticket();
         ticket.setUserId(user.getId());
         ticket.setCinemaName(cinema.getName());
-        ticket.setScreenId(screen.getId());
-        //ticket.setSeatsNames(seatEntityList);
-        ticket.setMovieName(movie.getTitle());
+        ticket.setScreenName(screen.getName());
+        ticket.setSeatsNames(seatEntityList);
+        ticket.setMovieName(movieName);
         ticket.setValue(value);
         ticket.setFunctionDate(functionDate);
         ticket.setActive(false);
 
-        Ticket savedTicket = ticketRepository.save(ticket);
+        Ticket savedTicket = ticketRepository.save(null);
         return savedTicket.getId();
     }
 

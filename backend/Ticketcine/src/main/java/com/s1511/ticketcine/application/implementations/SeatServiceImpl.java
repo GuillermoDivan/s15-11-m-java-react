@@ -1,11 +1,10 @@
 package com.s1511.ticketcine.application.implementations;
 
+import com.s1511.ticketcine.application.dto.seat.RequestSeatDto;
+import com.s1511.ticketcine.application.dto.seat.ResponseSeatDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.s1511.ticketcine.application.dto.seat.SeatDTO;
-import com.s1511.ticketcine.application.dto.seat.SeatReservationDTO;
 import com.s1511.ticketcine.application.mapper.SeatMapper;
 import com.s1511.ticketcine.domain.entities.Seat;
 import com.s1511.ticketcine.domain.repository.SeatRepository;
@@ -17,32 +16,27 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class SeatServiceImpl implements SeatService {
+public class SeatServiceImpl implements SeatService {/*
 
     private final SeatRepository seatRepository;
-
     private final SeatMapper seatMapper;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<SeatDTO> findAllSeats() {
-        List<Seat> seats = seatRepository.findAll();
+    public List<ResponseSeatDto> findAllSeats() { return null;
+       /* List<Seat> seats = seatRepository.findAll();
         return seats.stream()
                 .map(seatMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public SeatDTO findSeatById(Long id) {
+    public ResponseSeatDto findSeatById(Long id) { return null; /*
         Seat seat = seatRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Seat not found"));
         return seatMapper.toDTO(seat);
     }
 
-    @Override
     @Transactional
-    public Optional<Seat> seatReservation(Long id, SeatReservationDTO seatReservationDTO) {
+    public Optional<Seat> seatReservation(Long id, RequestSeatDto seatReservationDTO) {
+        return null; /*
         Optional<Seat> seatOptional = seatRepository.findById(id);
 
         if (!seatOptional.isPresent()) {
@@ -59,5 +53,5 @@ public class SeatServiceImpl implements SeatService {
         return Optional.of(seat); // Asiento reservado exitosamente
     }
 
-
+*/
 }

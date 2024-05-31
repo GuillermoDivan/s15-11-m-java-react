@@ -1,16 +1,14 @@
 package com.s1511.ticketcine.application.implementations;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.s1511.ticketcine.application.dto.movie.ReadDtoMovie;
 import com.s1511.ticketcine.application.dto.screen.CreateDtoScreen;
 import com.s1511.ticketcine.application.dto.screen.ReadDtoScreen;
 import com.s1511.ticketcine.application.dto.screen.UpdateDtoScreen;
-import com.s1511.ticketcine.application.dto.seat.SeatDTO;
 import com.s1511.ticketcine.application.mapper.ScreenMapper;
 import com.s1511.ticketcine.application.mapper.SeatMapper;
 import com.s1511.ticketcine.domain.entities.Screen;
-import com.s1511.ticketcine.domain.entities.Seat;
 import com.s1511.ticketcine.domain.repository.FunctionDetailsRepository;
 import com.s1511.ticketcine.domain.repository.ScreenRepository;
 import com.s1511.ticketcine.domain.repository.SeatRepository;
@@ -20,18 +18,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ScreenServiceImpl implements ScreenService {
-    @Autowired
+
     private ScreenRepository screenRepository;
-    @Autowired
     private ScreenMapper screenMapper;
-    @Autowired
     private SeatRepository seatRepository;
-    @Autowired
     private SeatMapper seatMapper;
-    @Autowired
     private FunctionDetailsRepository fdr;
-    @Override
+
+    @Override //todo. ver si es necesario.
     public ReadDtoScreen createScreen(CreateDtoScreen createDtoScreen) {
         Screen screen = screenMapper.createDtoToScreen(createDtoScreen);
         Screen savedScreen = screenRepository.save(screen);
@@ -56,29 +52,31 @@ public class ScreenServiceImpl implements ScreenService {
         return screenMapper.screenListToReadDtoList(screenList);
     }
 
-    @Override
+    @Override //todo. ver si es necesario. FACU DICE QUE SÍ PORQUE CAMBIA FUNCTION DETAILS!!!
     public ReadDtoScreen updateScreen(String id, UpdateDtoScreen updateDtoScreen) {
         Screen screen = screenRepository.findById(id).orElseThrow(() -> new RuntimeException("Screen not found"));
         screen.setName(updateDtoScreen.getName());
-        screen.setSeat(screenMapper.seatDTOToSeat(updateDtoScreen.getSeat()));
+        //screen.setSeat(screenMapper.seatDTOToSeat(updateDtoScreen.getSeat()));
         screen.setActive(updateDtoScreen.getActive());
         Screen updatedScreen = screenRepository.save(screen);
         return screenMapper.screenToReadDto(updatedScreen);
     }
 
-    @Override
+    @Override //todo. ver si es necesario.
     public void deleteScreen(String id) {
         if (!screenRepository.existsById(id)) {
             throw new RuntimeException("Screen not found");
         }
         screenRepository.deleteById(id);
     }
-    @Override
+
+    @Override //TODO. PUEDE SERVIR PARA FILTRO 2D Y 3D.
     public List<ReadDtoScreen> selectTypeScreen(String idMovie, String typeScreen, String idCinema) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'selectTypeScreen'");
     }
-    @Override
+
+    @Override // TODO.  DUPLICADO? VER CINEMASERVICE. CAPAZ ESTÁ EN USO.
     public List<ReadDtoScreen> selectMovieByCine(String idCinema) {
         List<Screen> screens = screenRepository.findByCinemaId(idCinema);
 

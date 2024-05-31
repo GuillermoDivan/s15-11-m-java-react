@@ -48,8 +48,6 @@ public class MovieServiceImpl implements MovieService {
         boolean hasMorePages = true;
 
         while (hasMorePages) {
-            //
-            System.out.println(page);
             String url = String.format(urlTemplate, page, today.toString());
 
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -68,17 +66,17 @@ public class MovieServiceImpl implements MovieService {
                 hasMorePages = false;
             }
         }
-        //
-        System.out.println(movieDtos);
-        // Transformar CreateDtoMovie a Movie
+
         List<Movie> movies = new ArrayList<>();
         for (CreateDtoMovie dto : movieDtos) {
-            System.out.println("DTO movie individual" +dto);
-            if (dto.original_language().equals("en") || dto.original_language().equals("es")) {
+            if ((dto.original_language().equals("en") || dto.original_language().equals("es")) &&
+                    dto.overview() != null && !dto.overview().isEmpty() &&
+                    dto.poster_path() != null && !dto.poster_path().isEmpty()) {
+
                 Movie movie = new Movie();
-                movie.setImage(dto.poster_path());
+                movie.setImage("https://image.tmdb.org/t/p/w220_and_h330_face"+dto.poster_path());
                 movie.setTitle(dto.title());
-                movie.setDescription("https://image.tmdb.org/t/p/w220_and_h330_face"+dto.overview());
+                movie.setDescription(dto.overview());
                 movie.setAdult(dto.adult());
                 movie.setReleaseDate(LocalDate.parse(dto.release_date())); // Assuming releaseDate is a String
                 movie.setThreeD(true);
@@ -96,8 +94,7 @@ public class MovieServiceImpl implements MovieService {
             movies.add(movie);
             }
         }
-        System.out.println("movies list" + movies);
-        // Guardar la lista de películas en la base de datos
+
         movieRepository.saveAll(movies);
 
         return new ResponseEntity<>(movies, HttpStatus.OK);
@@ -179,7 +176,7 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new EntityNotFoundException(movieId));
         var calificationList = movie.getUsersRating();
-
+        calificationList.add(1);
         Double addition = 0.0;
         for (int i = 0; i < calificationList.size(); i++) {
             addition = calificationList.get(i) + addition;

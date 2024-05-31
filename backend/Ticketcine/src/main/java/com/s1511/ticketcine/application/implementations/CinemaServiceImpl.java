@@ -26,19 +26,20 @@ public class CinemaServiceImpl implements CinemaService {
     public List<String> getCinemasCityName() {
 
         List<Cinema> cinemas = cinemaRepository.findAll();
-        List<String> citys = new ArrayList<String>();
+        List<String> cities = new ArrayList<String>();
 
         for (Cinema cinema : cinemas){
-            citys.add(cinema.getCity());
+            cities.add(cinema.getCity());
         }
 
-        return citys;
+        return cities;
     }
 
     @Override
     public List<Cinema> getCinemaListByCity(String city) {
         return cinemaRepository.findByCityAndActive(city, true);
     }
+        //TODO. DEVOLVER DTO, NO ENTIDAD, PERRI!!!
 
     @Override
     public List<ReadDtoMovie> getMoviesByCinema(String cinema) {
