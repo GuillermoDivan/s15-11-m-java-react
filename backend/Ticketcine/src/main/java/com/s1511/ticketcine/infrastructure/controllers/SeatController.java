@@ -1,5 +1,6 @@
 package com.s1511.ticketcine.infrastructure.controllers;
 
+import com.s1511.ticketcine.application.dto.seat.SeatReleaseRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,11 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.s1511.ticketcine.application.dto.seat.SeatDTO;
 import com.s1511.ticketcine.application.dto.seat.SeatReservationDTO;
-import com.s1511.ticketcine.domain.entities.Seat;
 import com.s1511.ticketcine.domain.services.SeatService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,9 +29,13 @@ public class SeatController {
         return seatService.findSeatById(id);
     }
 
+    @GetMapping("/reserved/{userId}")
+    public List<SeatDTO> getReservedSeatsByUserId(@PathVariable String userId) {
+        return seatService.findReservedSeatsByUserId(userId);
+    }
+
     @PostMapping("/{seatId}/reserve")
     public ResponseEntity<?> reserveSeat(@PathVariable String seatId, @RequestBody SeatReservationDTO reservationDTO) {
-        // Llama a la función seatReservation del servicio de asientos
         if (seatService.seatReservation(seatId, reservationDTO).isPresent()) {
             return ResponseEntity.ok("Seat reserved successfully");
         } else {
@@ -40,4 +43,12 @@ public class SeatController {
         }
     }
 
+    @PostMapping("/release")
+    public  ResponseEntity<String> releaseReservedSeats (@RequestBody SeatReleaseRequestDTO seatReleaseRequestDTO) {
+        if (seatService.releaseReservedSeats(seatReleaseRequestDTO)){
+            return ResponseEntity.ok("Seats succesfully released");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to release seats");
+        }
+    }
 }
