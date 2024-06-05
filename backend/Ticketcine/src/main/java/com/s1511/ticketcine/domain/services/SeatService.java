@@ -1,6 +1,6 @@
 package com.s1511.ticketcine.domain.services;
 
-import com.s1511.ticketcine.application.dto.seat.SeatReleaseRequestDTO;
+import com.s1511.ticketcine.application.dto.seat.MultiSeatDTO;
 import org.springframework.stereotype.Service;
 
 import com.s1511.ticketcine.application.dto.seat.SeatDTO;
@@ -17,6 +17,7 @@ public interface SeatService {
     SeatDTO findSeatById(String id);
     List<SeatDTO> findReservedSeatsByUserId(String userId);
     Optional<Seat> seatReservation(String id, SeatReservationDTO seatReservationDTO);
-    boolean releaseReservedSeats(SeatReleaseRequestDTO seatReleaseRequestDTO);
+    List<Optional<Seat>> reserveMultipleSeats (MultiSeatDTO multiSeatReservationDTO);
+    List<Optional<Seat>> releaseSeats (MultiSeatDTO seatReleaseDTO);
 
 }
