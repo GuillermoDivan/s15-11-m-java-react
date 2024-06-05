@@ -1,11 +1,9 @@
 package com.s1511.ticketcine.application.implementations;
 
-import com.s1511.ticketcine.application.dto.seat.SeatReleaseRequestDTO;
+import com.s1511.ticketcine.application.dto.seat.MultiSeatDTO;
 import com.s1511.ticketcine.domain.entities.User;
 import com.s1511.ticketcine.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +14,7 @@ import com.s1511.ticketcine.domain.entities.Seat;
 import com.s1511.ticketcine.domain.repository.SeatRepository;
 import com.s1511.ticketcine.domain.services.SeatService;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +27,6 @@ public class SeatServiceImpl implements SeatService {
     private final SeatRepository seatRepository;
     private final UserRepository userRepository;
     private final SeatMapper seatMapper;
-    private static final Logger logger = LoggerFactory.getLogger(SeatServiceImpl.class);
 
     @Override
     public List<SeatDTO> findAllSeats() {
@@ -77,38 +75,70 @@ public class SeatServiceImpl implements SeatService {
         User user = userOptional.get();
         seat.setCurrentUser(user);
         seat.setAvailability(Seat.Availability.OCCUPIED); // Actualizar a OCCUPIED al reservar
+        seat.setReservationTime(LocalDateTime.now()); // Establecer el tiempo de reserva
         seatRepository.save(seat);
         return Optional.of(seat); // Estado del asiento actualizado exitosamente
     }
 
     @Override
     @Transactional
-    public boolean releaseReservedSeats(SeatReleaseRequestDTO seatReleaseRequestDTO) {
-        Optional<User> userOptional = userRepository.findById(seatReleaseRequestDTO.userId());
+    public List<Optional<Seat>> reserveMultipleSeats(MultiSeatDTO multiSeatReservationDTO) {
+        Optional<User> userOptional = userRepository.findById(multiSeatReservationDTO.userId());
 
         if (!userOptional.isPresent()) {
-            logger.error("Usuario no encontrado o no activo: {}", seatReleaseRequestDTO.userId());
-            return false; // Usuario no encontrado o no activo
+            return List.of(); //Usuario no encontrado
         }
 
         User user = userOptional.get();
-        List<Seat> seats = seatRepository.findAllById(seatReleaseRequestDTO.seatIds());
+        List<Optional<Seat>> reservedSeats = multiSeatReservationDTO.seatIds().stream()
+                .map(seatId -> {
+                    Optional<Seat> seatOptional = seatRepository.findById(seatId);
 
-        for (Seat seat : seats) {
-            if (seat.getCurrentUser().equals(user) && seat.getAvailability() == Seat.Availability.OCCUPIED) {
-                logger.info("Liberando asiento: {}, para el usuario: {}", seat.getId(), user.getId());
-                seat.setAvailability(Seat.Availability.RESERVED);
-                seatRepository.save(seat);
-            } else {
-                logger.warn("Asiento no puede ser liberado: {}, current user: {}, expected user: {}, availability: {}",
-                        seat.getId(), seat.getCurrentUser() != null ? seat.getCurrentUser().getId() : "null", user.getId(), seat.getAvailability());
-            }
-        }
+                    if (seatOptional.isPresent()) {
+                        Seat seat = seatOptional.get();
+                        if (seat.getAvailability() == Seat.Availability.AVAILABLE) {
+                            seat.setCurrentUser(user);
+                            seat.setAvailability(Seat.Availability.OCCUPIED);
+                            seat.setReservationTime(LocalDateTime.now()); // Establecer el tiempo de reserva
+                            seatRepository.save(seat);
+                            return Optional.of(seat);
+                        }
+                    }
+                    return Optional.<Seat>empty();
 
-        return true;
+                }).collect(Collectors.toList());
 
+        return reservedSeats;
     }
 
+    @Override
+    public List<Optional<Seat>> releaseSeats(MultiSeatDTO seatReleaseDTO) {
+        Optional<User> userOptional = userRepository.findById(seatReleaseDTO.userId());
 
+        if (!userOptional.isPresent()) {
+            return List.of(); // Usuario no encontrado o no activo
+        }
+
+        User user = userOptional.get();
+        List<Optional<Seat>> releasedSeats = seatReleaseDTO.seatIds().stream()
+                .map(seatId -> {
+                    Optional<Seat> seatOptional = seatRepository.findById(seatId);
+
+                    if (seatOptional.isPresent()) {
+                        Seat seat = seatOptional.get();
+                        if (seat.getAvailability() == Seat.Availability.OCCUPIED &&
+                                seat.getCurrentUser().equals(user)) {
+                            seat.setPreviousUser(user);
+                            seat.setCurrentUser(null);
+                            seat.setAvailability(Seat.Availability.RESERVED);
+                            seatRepository.save(seat);
+                            return Optional.of(seat);
+                        }
+                    }
+                    return Optional.<Seat>empty();
+                }).collect(Collectors.toList());
+
+        return releasedSeats;
+    }
 
 }
