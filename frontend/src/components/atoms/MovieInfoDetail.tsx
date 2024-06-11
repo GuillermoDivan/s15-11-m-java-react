@@ -1,4 +1,4 @@
-import { IMovieInfoDetail } from '@/common/interfaces'
+import { IMovieInfoDetail } from '@/common/interface-movie'
 import { convertGenre } from '@/utils/fc-movies'
 import { Box, Typography } from '@mui/material'
 import { FC } from 'react'
@@ -46,9 +46,3 @@ const MovieInfoDetail: FC<IMovieInfoDetail> = (movieInfoDetail) => {
 }
 
 export default MovieInfoDetail
-
-
-/* 
-    { name: "subtitulada", value: threeD },
-    { name: "3D", value: subtitle },
-*/

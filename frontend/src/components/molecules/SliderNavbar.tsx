@@ -81,14 +81,6 @@ const Navbar = () => {
                     ))}
                 </List>
 
-
-                <Container sx={{ display: "flex", flexWrap: "wrap", flexDirection: "column", justifyContent: "center" }}>
-
-                    <ListItemText sx={{ color: "#fff9", p: 2 }}>
-                        Que esperas para obtener tu entrada!
-                    </ListItemText>
-                </Container>
-
             </Box>
         </Drawer>
 

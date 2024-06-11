@@ -17,12 +17,11 @@ export interface IMovieInfoDetail {
     original_language?: string,
     censorship?: string,
     certification?: string,
-}
-export interface IMovieDescription {
-    description: string,
+    description?: string,
 }
 
-export interface IMovieContentDetail extends IMovieInfoDetail, IMovieDescription {
+
+export interface IMovieContentDetail extends IMovieInfoDetail {
     // DATOS QUE SI LLEGAN DEL BACKEND (JAVA)
     subtitle: boolean,
     adult: boolean,

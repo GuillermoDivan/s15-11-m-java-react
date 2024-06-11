@@ -24,7 +24,7 @@ const Header = () => {
                         width={48}
                         height={48}
                     />
-                    <Typography variant="h5" component={Link} href="/"  >
+                    <Typography variant="h5" component={Link} href="/peliculas/en-pantalla"  >
                         PopcornPass
                     </Typography>
                 </Box>

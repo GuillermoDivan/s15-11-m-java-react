@@ -1,4 +1,4 @@
-import { IMovieImage } from "@/common/interfaces"
+import { IMovieImage } from "@/common/interface-movie"
 import { Box } from "@mui/material"
 import { FC } from "react"
 

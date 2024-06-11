@@ -2,16 +2,12 @@ import * as React from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem, FormControl, Select, useTheme } from "@mui/material";
 import { UseFormRegisterReturn } from "react-hook-form";
-
-export interface IOptionsValue {
-    value: string;
-    name: string;
-}
+import { ICinema } from "@/store/cinema-store";
 
 interface Props {
     register?: UseFormRegisterReturn,
     valueAndName?: string[],
-    optionsValue?: IOptionsValue[] | false,
+    optionsValue?: ICinema[] | false,
     listTo?: string,
     currentValue?: any,
 }
@@ -70,8 +66,9 @@ const InputSelected: any = ({ register, currentValue, valueAndName, optionsValue
                             </MenuItem>))
                         :
                         optionsValue && optionsValue.length > 0
-                            ? optionsValue.map(({ value, name }, i) => (
-                                <MenuItem key={i} value={value}>{name}</MenuItem>))
+                            ? optionsValue.map(({ id, name }, i) => (
+                                <MenuItem key={`${i}-${id}`} value={id}>{name}</MenuItem>
+                            ))
                             : <MenuItem disabled>Cargando opciones...</MenuItem>
                 }
 

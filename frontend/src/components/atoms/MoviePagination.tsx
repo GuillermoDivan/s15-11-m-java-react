@@ -9,7 +9,10 @@ const MoviePagination = () => {
         setPage: state.setPage,
         totalPages: state.totalPages
     }), shallow)
-    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => setPage(value);
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
 
 
     return <Pagination sx={{

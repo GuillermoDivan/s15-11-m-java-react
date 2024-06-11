@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from 'react'
-import InputSelected, { IOptionsValue } from '../atoms/InputSelected'
+import InputSelected from '../atoms/InputSelected'
 import { Box } from '@mui/material'
-import { useCinemaStore } from '@/store/cinema-store'
+import { ICinema, useCinemaStore } from '@/store/cinema-store'
 import { useForm } from 'react-hook-form'
 import { fetchData } from '@/utils/fetchData'
 
@@ -15,7 +15,7 @@ const SelectCine = ({ cities }: { cities: string[] }) => {
     }))
 
 
-    const [cinemaList, setCinemaList] = useState<IOptionsValue[] | false>(false)
+    const [cinemaList, setCinemaList] = useState<ICinema[] | false>(false)
     const { register, watch } = useForm()
     const { city, cinema } = watch()
 
@@ -23,7 +23,11 @@ const SelectCine = ({ cities }: { cities: string[] }) => {
 
     useEffect(() => {
         if (city == "empty" || !cinema || !city) return
-        if (cinema != currentCinema && currentCinema == "empty") setCurrentCinema(cinema)
+
+        if (cinema != "empty") {
+            const objCinema = cinemaList && cinemaList.find(({ id }) => id == cinema)
+            objCinema && setCurrentCinema(objCinema)
+        }
     }, [cinema])
 
 
@@ -34,22 +38,20 @@ const SelectCine = ({ cities }: { cities: string[] }) => {
         if (city == "empty" && currentCity == "empty") return
         if (city && city != "empty") {
             setCurrentCity(city)
-            setCurrentCinema("empty")
+            setCurrentCinema(false)
         }
         const listFetch = async (): Promise<any> => {
-            if (currentCity != "empty" && !city) {
+            if (currentCity && !city) {
                 //  PEDIR LISTA DE CINES DEPENDIENDO DE LA CIUDAD SELECCIONADA
                 const res = await fetchData(`cinema/cinemasByCity/${currentCity}`)
-                const dtoMovies = res.map(({ id, name }: { id: string, name: string }) => ({ value: id, name }))
-                setCinemaList(dtoMovies)
+                setCinemaList(res)
                 return
             }
 
             if (city && city !== "empty") {
                 //  PEDIR LISTA DE CINES DEPENDIENDO DE LA CIUDAD SELECCIONADA
                 const res = await fetchData(`cinema/cinemasByCity/${city}`)
-                const dtoMovies = res.map(({ id, name }: { id: string, name: string }) => ({ value: id, name }))
-                setCinemaList(dtoMovies)
+                setCinemaList(res)
                 return
             }
         }
@@ -70,7 +72,7 @@ const SelectCine = ({ cities }: { cities: string[] }) => {
             />
             {cinemaList && (
                 <InputSelected
-                    currentValue={currentCinema}
+                    currentValue={currentCinema ? currentCinema.id : "empty"}
                     listTo={"Cines"}
                     optionsValue={cinemaList}
                     register={{ ...register("cinema") }}

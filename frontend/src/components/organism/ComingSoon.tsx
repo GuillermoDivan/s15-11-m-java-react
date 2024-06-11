@@ -1,23 +1,24 @@
 "use client"
 import { FC, useEffect } from "react";
 import MovieCard from "../molecules/MovieCard";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { convertGenre } from "@/utils/fc-movies";
 import { useMoviesPagination } from "@/store/cspagination-store";
 import { shallow } from "zustand/shallow";
-import { IMovie } from "@/common/interfaces";
+import { IMovie } from "@/common/interface-movie";
 
 
 const ComingSoon: FC<{ movies: IMovie[] }> = ({ movies }) => {
     console.log(movies);
-    
+
     const router = useRouter();
     const { page, setTotalPages, setPage } = useMoviesPagination(state => (
-        { page: state.page, setTotalPages: state.setTotalPages, setPage:state.setPage }
+        { page: state.page, setTotalPages: state.setTotalPages, setPage: state.setPage }
     ), shallow)
 
     const ITEMS_PER_PAGES = 10;
-    const handleClick = (id: string) => router.push("/pelicula/" + id);
+    const currentPath = usePathname();
+    const handleClick = (id: string) => router.push(`${currentPath}/${id}`);
 
     useEffect(() => {
         const totalMovies = movies.length;

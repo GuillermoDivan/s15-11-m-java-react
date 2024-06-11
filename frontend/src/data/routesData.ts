@@ -5,15 +5,19 @@ interface IRoute {
 
 const routes: ReadonlyArray<IRoute> = Object.freeze([
     {
-        name: "inicio",
-        path: "/"
-    },
-    {
         name: "peliculas",
         path: "/peliculas/en-pantalla"
     },
     {
+        name: "puntos",
+        path: "/#"
+    },
+    {
         name: "promociones",
+        path: "/#"
+    },
+    {
+        name: "cines",
         path: "/#"
     },
     {

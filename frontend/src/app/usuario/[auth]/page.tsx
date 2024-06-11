@@ -8,7 +8,7 @@ const FormRegister = dynamic(() => import("@/components/organism/FormRegister"),
 
 export const metadata: Metadata = {
     title: "Inicia sesión o Regístrate",
-    description: "Inicia sesión en NextApp para conseguir tus entradas!"
+    description: "Inicia sesión en PopcornPass para conseguir tus entradas!"
 };
 
 const Page = ({ params }: { params: { auth: "iniciar-sesion" | "registro" } }) => {
@@ -19,7 +19,7 @@ const Page = ({ params }: { params: { auth: "iniciar-sesion" | "registro" } }) =
     return (
         <Container sx={{ backgroundColor: "var(--lightBlack)", margin: "2.3rem auto", borderRadius: "20px", padding: "2.3rem 1rem", width: { xs: "80%", md: "450px" } }}>
             <Typography variant="h4" textAlign="center" sx={{ margin: ".5rem auto 2rem" }}>
-                {auth == "registro" ? "Registrate" : "Inicia Sesión"} en NextApp
+                {auth == "registro" ? "Registrate" : "Inicia Sesión"} en PopcornPass
             </Typography>
             {
                 auth == "registro"

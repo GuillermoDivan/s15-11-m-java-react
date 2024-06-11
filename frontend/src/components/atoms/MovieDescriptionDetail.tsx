@@ -1,8 +1,7 @@
-import { IMovieDescription } from "@/common/interfaces"
 import { Box, Typography } from "@mui/material"
 import { FC } from "react"
 
-const MovieDescriptionDetail: FC<IMovieDescription> = ({ description }) => {
+const MovieDescriptionDetail: FC<{ description: string }> = ({ description }) => {
     return (
         <Box padding="10px 20px">
             <Typography fontWeight={700} fontSize="24px" variant="subtitle1" lineHeight={"30px"} color="var(--light-white-color)">

@@ -1,12 +1,12 @@
 
 <h1 align="center">
-PopcornPass
+      PopcornPass
 </h1>
 
 
 PopcornPass es una aplicación web diseñada para ofrecer a nuestros cines una plataforma moderna y eficiente para exhibir y gestionar sus películas, horarios y boletos. Además, brinda a los usuarios una experiencia mejorada al permitirles explorar la cartelera, comprar boletos en línea y recibir recomendaciones personalizadas. Con PopcornPass, los cines pueden mostrar su oferta de películas, actualizar horarios y gestionar la disponibilidad de boletos de manera sencilla. Los usuarios pueden descubrir nuevas películas, reservar sus asientos favoritos con facilidad y recibir notificaciones sobre próximos estrenos y promociones especiales. Con una interfaz intuitiva y funcionalidades avanzadas, PopcornPass optimiza la experiencia tanto para los cines como para los cinéfilos, garantizando una gestión y una experiencia de visualización de películas eficiente y satisfactoria.
 <div align='center'>
-   <a href="https:///" target="_blank">
+   <a href="https://popcorn-pass-maidana07-projects.vercel.app/peliculas/en-pantalla" target="_blank">
       <img src="https://img.shields.io/badge/VER_DEMO-EE9B01?style=for-the-badge&logo=heroku&logoColor=purple"/>
   </a>
    <a href="https://" target="_blank">
@@ -25,6 +25,7 @@ PopcornPass es una aplicación web diseñada para ofrecer a nuestros cines una p
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+![Zustand](https://img.shields.io/badge/zustand-%232023a.svg?style=for-the-badge&logo)
 
 
 #### Backend
@@ -58,10 +59,10 @@ PopcornPass es una aplicación web diseñada para ofrecer a nuestros cines una p
 | Integrantes       | Linkedin | Github |
 |-------------------| ------------ | ------------ |
 | Guillermo Diván   |[![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]( https://www.linkedin.com/in/guillermo-divan/) | [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GuillermoDivan) |  
-| Luciana Mazur     |[![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LucianaMazur)  |
+| Luciana Mazur     |[![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucianamazur/) |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LucianaMazur)  |
 | David Frías       | [![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/david-frias-ruiz/) |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Adavidfr) |
 | Facundo La Bionda | [![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/facundo-la-bionda-a31866286/) |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/facuu142) |
-| Franco Nordinelli | [![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]() |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FrancoNordinelli) |
+| Franco Nordinelli | [![Linkedin](    https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/franco-nordinelli/) |[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FrancoNordinelli) |
 
 <br/>
 

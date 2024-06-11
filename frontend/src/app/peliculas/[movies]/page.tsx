@@ -5,17 +5,13 @@ import dynamic from "next/dynamic";
 import Loader from "@/components/atoms/Loader";
 import { fetchData } from "@/utils/fetchData";
 import { filteredListComingSoon, filteredListPlayingNow } from "@/utils/fc-movies";
-import { IMovie } from "@/common/interfaces";
+import { IMovie } from "@/common/interface-movie";
 
 const MovieFilters = dynamic(() => import("@/components/organism/MovieFilters"), { ssr: false })
 const MoviePagination = dynamic(() => import("@/components/atoms/MoviePagination"), { ssr: false })
 
 const PlayingNow = dynamic(() => import("@/components/organism/PlayingNow"), { ssr: false, loading: () => <Loader /> })
 const ComingSoon = dynamic(() => import("@/components/organism/ComingSoon"), { ssr: false, loading: () => <Loader /> })
-
-export const metadata: Metadata = {
-    title: "Peliculas"
-};
 
 export const revalidate = 3600 * 24
 
@@ -50,7 +46,7 @@ const Page = async ({ params }: IProps) => {
         <Box component="div" width="95%" m="2.5rem auto" display="flex" alignItems="center" gap="1rem"
             sx={{ flexDirection: { xs: "column", md: "row" }, justifyContent: { xs: "center", md: "space-between" } }}>
 
-            <Typography variant="h3" textAlign={{ xs: "center", md: "left" }}>
+            <Typography variant="h3" component="h1" textAlign={{ xs: "center", md: "left" }}>
                 Peliculas Disponibles
             </Typography>
 
@@ -74,7 +70,7 @@ const Page = async ({ params }: IProps) => {
         </Box>
 
         {!inComingSoon && <MovieFilters cities={cities || ["empty"]} />}
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: { xs: "20px 0", sm: "16px" }, justifyContent: "space-evenly" }} mb="3.5rem" >
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: { xs: "20px 0", sm: "16px" }, justifyContent: "space-evenly" }} mb="3.5rem">
             {inComingSoon
                 ? <ComingSoon movies={data.inComingSoon} />
                 : <PlayingNow movies={data.playingNow} />}

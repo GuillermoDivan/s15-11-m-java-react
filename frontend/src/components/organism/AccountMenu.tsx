@@ -1,6 +1,6 @@
 "use client"
-import { Fragment, useState, MouseEvent } from "react";
-import { Avatar, Menu, MenuItem, Divider, IconButton, Tooltip } from "@mui/material";
+import { useState, MouseEvent } from "react";
+import { Avatar, Menu, MenuItem, Divider, IconButton, Tooltip, Typography } from "@mui/material";
 import { useAuthStore } from "@/store/auth-store";
 import { shallow } from "zustand/shallow";
 import { SxProps } from "@mui/material";
@@ -81,8 +81,15 @@ const AccountMenu = () => {
                     isLogged
                         ?
                         <MenuItem onClick={handleClose} sx={{
-                            color: "var(--yellow)", justifyContent: "center", "&:hover": { color: "var(--yellow)!important" }
-                        }}>¡Hola {firstName} {lastName}!</MenuItem>
+                            color: "var(--yellow)", flexDirection: "column", justifyContent: "center", "&:hover": { color: "var(--yellow)!important" }
+                        }}>
+                            <Typography variant="body1">
+                                ¡Hola {firstName} {lastName}!
+                            </Typography>
+                            <Typography variant="body2">
+                                5.500 MoviePoints
+                            </Typography>
+                        </MenuItem>
                         :
                         <AuthMenuItems handleClick={handleClose} />
                 }

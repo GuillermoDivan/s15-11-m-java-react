@@ -10,6 +10,12 @@ const nextConfig = {
             },
             {
                 protocol: "https",
+                hostname: "popcorn-pass-maidana07-projects.vercel.app",
+                port: "",
+                pathname: "/(.*)"
+            },
+            {
+                protocol: "https",
                 hostname: "image.tmdb.org",
                 port: "",
                 pathname: "/t/p/**"

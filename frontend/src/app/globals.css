@@ -25,6 +25,13 @@ body {
   justify-content: space-between;
 }
 
+main {
+  margin: 2rem auto 4rem;
+  min-height: 80vh;
+  min-width: 100%;
+  align-content: center;
+}
+
 a {
   text-decoration: none;
   color: inherit;
